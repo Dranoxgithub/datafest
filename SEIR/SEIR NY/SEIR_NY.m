@@ -1,10 +1,10 @@
 function f = SEIR_NY(t,y)
 % assume a natural birth-death rate balance
-birthRate = 0.0000021; %if do not assume such balance
-deathRate = 0.000002;
+birthRate = 0.00000; %if do not assume such balance
+deathRate = 0.00000;
 emigRate = 0.00205;
 incubationPeriod = 6.2; 
-awareness = (1/(1+exp(-0.24*t))-0.5)*1.96; % awareness is modeled by shifted and rescaled logistic function
+awareness = (1/(1+exp(-0.35*t))-0.5)*1.93; % awareness is modeled by shifted and rescaled logistic function
 contactRate = 1.68*(1-awareness);% contactRate¡Ê[0.5944, 1.68] 
 recoveryRate = 0.04;
 totalPopulation = 8390000;

@@ -1,4 +1,4 @@
-function [t,y] = rk4_AK(f,tspan,y0,h)
+function [t,z] = rk4_AK(f,tspan,y0,h)
 % initial value ODE y¡¯ = f(t,y), y(a) = y0,
 % using the classical 4-stage Runge-Kutta method
 % with a fixed step size h.
@@ -15,9 +15,9 @@ y(:,1) = y0; % initialize
 % Integrate
 for i=1:min(n/h, N)
 % Calculate the four stages
-%if mod(i, 10000) == 0 
-   %y(2, i) = y(2, i)+imported(i/10000)*0.3;
-%end
+if mod(i, 10000) == 0 
+   y(2, i) = y(2, i)+imported(i/10000)*0.3;
+end
 K1 = feval(f, t(i),y(:,i) );
 K2 = feval(f, t(i)+.5*h, y(:,i)+.5*h*K1);
 K3 = feval(f, t(i)+.5*h, y(:,i)+.5*h*K2);
@@ -33,4 +33,9 @@ K3 = feval(f, t(i)+.5*h, y(:,i)+.5*h*K2);
 K4 = feval(f, t(i)+h, y(:,i)+h*K3 );
 % Evaluate approximate solution at next step
 y(:,i+1) = y(:,i) + h/6 *(K1+2*K2+2*K3+K4)';
+end
+for i = 1:N
+    if mod(i, 10000)==0
+        z(:, i/10000) = y(:, i);
+    end
 end
